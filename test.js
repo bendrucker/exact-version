@@ -10,5 +10,6 @@ test(function (t) {
   t.notOk(exact('^4.0.0'))
   t.notOk(exact('>= 4.0.0'))
   t.notOk(exact('<= 4.0.0'))
+  t.notOk(exact('4.0.0 || 4.0.1'))
   t.end()
 })
