@@ -9,12 +9,8 @@ const rangeRegEx = /^$|[\^*~<>|]|(\d+\.x)|(\d+(\.\d)*\s*-\s*\d+(\.\d)*)/
 const nestedSemVerRegEx = /#semver:(.*)$/
 
 function extractSemVer (s) {
-  let result = null
   const match = s.match(nestedSemVerRegEx)
-  if (match) {
-    result = match[1]
-  }
-  return result
+  return match && match[1]
 }
 
 module.exports = function exactVersion (versionString) {
