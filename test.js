@@ -4,27 +4,29 @@ const test = require('tape')
 const exact = require('./')
 
 test('exact versions -> true', function (t) {
-  console.log('--------------\r\n\r\n')
-  t.ok(exact('4.0.0'), 'Typical 3-tiered version number')
-  console.log('\r\n\r\n')
-  t.ok(exact('1.8.3-beta.1'), 'Tagged version')
-  t.ok(exact('=4.0.0'), "= (this doesn't appear to be part of the official spec)")
+  [
+    '4.0.0',
+    '1.8.3-beta.1',
+    '=4.0.0' // Note: this doesn't appear to be part of the official spec
+  ].forEach(input => t.ok(exact(input), input))
   t.end()
 })
 
 test('range versions -> false', function (t) {
-  t.notOk(exact(''), 'Blank/empty is the same as *')
-  t.notOk(exact('*'), '* means anything')
-  t.notOk(exact('~4.0.0'), '~ specifies as range')
-  t.notOk(exact('^4.0.0', '^ specifies a range'))
-  t.notOk(exact('1.x'), '<digit>.x specifies a range')
-  t.notOk(exact('3.15.x'), '<digit>.<digit>.x specifies a range')
-  t.notOk(exact('>= 4.0.0'), '>= specifies a range')
-  t.notOk(exact('<= 4.0.0'), '<= specifies a range')
-  t.notOk(exact('>=2.0.0 <=2.2.3'), '>= and <= specify ranges')
-  t.notOk(exact('>=1.0.0 <=1.0.0'), 'Although mathematically ">=1.0.0 <=1.0.0" is a range of 1, we still treat it this as a range')
-  t.notOk(exact('2.0.0 - 2.2.3'), 'Hyphen is just like >= and <=')
-  t.notOk(exact('4.0.0 || 4.0.1'), 'Logical OR should be considered a range')
+  [
+    '',
+    '*',
+    '~4.0.0',
+    '^4.0.0',
+    '1.x',
+    '3.15.x',
+    '>= 4.0.0',
+    '<= 4.0.0',
+    '>=2.0.0 <=2.2.3',
+    '>=1.0.0 <=1.0.0', // Although mathematically ">=1.0.0 <=1.0.0" is a range of 1, we still treat it this as a range
+    '2.0.0 - 2.2.3',
+    '4.0.0 || 4.0.1'
+  ].forEach(input => t.notOk(exact(input), input))
   t.end()
 })
 
