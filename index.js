@@ -6,20 +6,21 @@
 //  - A digit followed by .x
 //  - A hyphenated range like "a.b.c - d.e.f"
 const rangeRegEx = /^$|[\^*~<>|]|(\d+\.x)|(\d+(\.\d)*\s*-\s*\d+(\.\d)*)/
-const commitishSemverRegEx = /#semver:(.*)$/
+const nestedSemVerRegEx = /#semver:(.*)$/
 
 function extractSemVer (s) {
   let result = null
-  if (typeof s === 'string') {
-    const match = s.match(commitishSemverRegEx)
-    if (match) {
-      result = match[1]
-    }
+  const match = s.match(nestedSemVerRegEx)
+  if (match) {
+    result = match[1]
   }
   return result
 }
 
 module.exports = function exactVersion (versionString) {
+  if (typeof versionString !== 'string') {
+    return false
+  }
   const nestedSemVer = extractSemVer(versionString)
   const semVerString = nestedSemVer === null ? versionString : nestedSemVer
 
