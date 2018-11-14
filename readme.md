@@ -1,4 +1,4 @@
-# exact-version [![Build Status](https://travis-ci.org/bendrucker/exact-version.svg?branch=master)](https://travis-ci.org/bendrucker/exact-version)
+# exact-version [![Build Status](https://travis-ci.org/bendrucker/exact-version.svg?branch=master)](https://travis-ci.org/bendrucker/exact-version) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/exact-version.svg)](https://greenkeeper.io/)
 
 > Detect if a version string is an exact version and not a range
 
